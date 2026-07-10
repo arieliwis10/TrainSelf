@@ -1,10 +1,10 @@
-FROM node:22-alpine AS build
+FROM eclipse-temurin:17-jdk-alpine AS build
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
 COPY . .
-RUN npm run build
+RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
-FROM nginx:alpine
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
-EXPOSE 80
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8081
+ENTRYPOINT ["java", "-jar", "app.jar"]
