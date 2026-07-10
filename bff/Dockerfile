@@ -1,7 +1,10 @@
-FROM node:20-alpine
+FROM eclipse-temurin:17-jdk-alpine AS build
 WORKDIR /app
-COPY package*.json ./
-RUN npm install --omit=dev
 COPY . .
+RUN chmod +x mvnw && ./mvnw clean package -DskipTests
+
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 3000
-CMD ["node", "index.js"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
