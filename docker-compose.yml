@@ -1,15 +1,109 @@
 version: '3.8'
-services:
-  backend:
-    build: ./backend
-    ports:
-      - "8080:8080"
-    restart: always
 
+services:
+
+  # ─────────────────────────────
+  # Autenticación (JWT)
+  # ─────────────────────────────
+  ms-auth:
+    build: ./ms-auth
+    ports:
+      - "8081:8081"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - SPRING_PROFILES_ACTIVE=docker
+    restart: always
+    networks:
+      - trainself-net
+
+  # ─────────────────────────────
+  # Microservicios de negocio
+  # ─────────────────────────────
+  ms-usuarios:
+    build: ./ms-usuarios
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    restart: always
+    depends_on:
+      - ms-auth
+    networks:
+      - trainself-net
+
+  ms-rutinas:
+    build: ./ms-rutinas
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    restart: always
+    depends_on:
+      - ms-auth
+    networks:
+      - trainself-net
+
+  ms-admin:
+    build: ./ms-admin
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    restart: always
+    depends_on:
+      - ms-auth
+    networks:
+      - trainself-net
+
+  ms-leaderboard:
+    build: ./ms-leaderboard
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    restart: always
+    depends_on:
+      - ms-auth
+    networks:
+      - trainself-net
+
+  # ─────────────────────────────
+  # BFF (Node/Express) — orquesta y valida JWT
+  # ─────────────────────────────
+  bff:
+    build: ./bff
+    ports:
+      - "3000:3000"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - AUTH_SERVICE_URL=http://ms-auth:8081
+      - USUARIOS_SERVICE_URL=http://ms-usuarios:8082
+      - RUTINAS_SERVICE_URL=http://ms-rutinas:8083
+      - ADMIN_SERVICE_URL=http://ms-admin:8084
+      - LEADERBOARD_SERVICE_URL=http://ms-leaderboard:8085
+    restart: always
+    depends_on:
+      - ms-auth
+      - ms-usuarios
+      - ms-rutinas
+      - ms-admin
+      - ms-leaderboard
+    networks:
+      - trainself-net
+
+  # ─────────────────────────────
+  # Frontend (Angular)
+  # ─────────────────────────────
   frontend:
     build: ./frontend
     ports:
       - "80:80"
     restart: always
     depends_on:
-      - backend
+      - bff
+    networks:
+      - trainself-net
+
+networks:
+  trainself-net:
+    driver: bridge

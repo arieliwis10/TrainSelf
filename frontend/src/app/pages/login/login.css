@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0f0f0f;
+}
+
+.card {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 360px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+h2 {
+  color: #00e5ff;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+}
+
+.subtitle {
+  color: #888;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  color: #ccc;
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #252525;
+  color: white;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #00e5ff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+button:hover {
+  background: #00b8d4;
+}
+
+.error {
+  color: #ff5252;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.link {
+  color: #888;
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+}
+
+.link a {
+  color: #00e5ff;
+  text-decoration: none;
+}
