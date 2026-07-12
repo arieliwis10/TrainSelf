@@ -31,7 +31,7 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: () => {
         this.cargando = false;
-        this.router.navigate(['/']); // ajusta a tu ruta principal cuando la tengas
+        this.router.navigate(['/objetivo']); // ajusta a tu ruta principal cuando la tengas
       },
       error: (err) => {
         this.cargando = false;

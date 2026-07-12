@@ -1,0 +1,29 @@
+<div class="container" *ngIf="!cargando && rutina">
+  <div class="card">
+    <button class="back" (click)="volver()">&larr;</button>
+    <h2>{{ rutina.nombre }}</h2>
+    <p class="subtitle">{{ rutina.objetivo.nombre }} · {{ rutina.nivel }}</p>
+    <p class="meta">Duración estimada: {{ rutina.duracionEstimadaMin }} min</p>
+
+    <div class="ejercicios">
+      <div class="ejercicio" *ngFor="let ej of rutina.ejercicios; let i = index">
+        <span class="numero">{{ i + 1 }}</span>
+        <div class="detalle">
+          <strong>{{ ej.nombre }}</strong>
+          <small>{{ ej.duracionSeg }}s · descanso {{ ej.descansoSeg }}s</small>
+        </div>
+      </div>
+    </div>
+
+    <p class="exito" *ngIf="mensajeExito">{{ mensajeExito }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <button class="completar" (click)="marcarCompletada()" [disabled]="completando || !!mensajeExito">
+      {{ mensajeExito ? 'Completada ✓' : (completando ? 'Guardando...' : 'Marcar rutina como completada') }}
+    </button>
+  </div>
+</div>
+
+<div class="container" *ngIf="cargando">
+  <p style="color:#fff">Cargando rutina...</p>
+</div>

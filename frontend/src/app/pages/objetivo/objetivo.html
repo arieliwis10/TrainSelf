@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="card">
+    <h2>¿Cuál es tu objetivo hoy?</h2>
+    <p class="subtitle">Elige el que mejor se adapte a ti</p>
+
+    <div class="objetivo-list">
+      <div
+        *ngFor="let obj of objetivos"
+        class="objetivo-item"
+        [class.selected]="objetivoSeleccionado === obj.nombre"
+        (click)="seleccionarObjetivo(obj.nombre)"
+      >
+        <span class="icono">{{ obj.icono }}</span>
+        <div class="texto">
+          <strong>{{ obj.nombre }}</strong>
+          <small>{{ obj.descripcion }}</small>
+        </div>
+      </div>
+    </div>
+
+    <p class="label">Nivel</p>
+    <div class="nivel-group">
+      <button
+        *ngFor="let n of niveles"
+        [class.active]="nivelSeleccionado === n"
+        (click)="seleccionarNivel(n)"
+      >
+        {{ n }}
+      </button>
+    </div>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <button class="continuar" (click)="continuar()" [disabled]="cargando">
+      {{ cargando ? 'Cargando...' : 'Continuar' }}
+    </button>
+  </div>
+</div>
