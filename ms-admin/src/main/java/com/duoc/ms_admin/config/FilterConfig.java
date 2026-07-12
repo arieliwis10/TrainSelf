@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean<AdminRoleFilter> adminRoleFilter(AdminRoleFilter filter) {
+    public FilterRegistrationBean<AdminRoleFilter> adminRoleFilterRegistration(AdminRoleFilter filter) {
         FilterRegistrationBean<AdminRoleFilter> registration = new FilterRegistrationBean<>(filter);
         registration.addUrlPatterns("/rutinas/*", "/ejercicios/*", "/insights/*");
         return registration;
