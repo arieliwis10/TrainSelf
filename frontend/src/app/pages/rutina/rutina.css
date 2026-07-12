@@ -69,4 +69,21 @@ h2 { margin-bottom: 0.25rem; }
   cursor: pointer;
 }
 
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.ranking-btn {
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
 .completar:disabled { opacity: 0.6; cursor: not-allowed; }

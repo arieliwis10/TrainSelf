@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/login/login';
 import { RegistroComponent } from './pages/registro/registro';
 import { ObjetivoComponent } from './pages/objetivo/objetivo';
 import { RutinaComponent } from './pages/rutina/rutina';
+import { LeaderboardComponent } from './pages/leaderboard/leaderboard';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -10,5 +11,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'objetivo', component: ObjetivoComponent, canActivate: [authGuard] },
-  { path: 'rutina/:id', component: RutinaComponent, canActivate: [authGuard] }
+  { path: 'rutina/:id', component: RutinaComponent, canActivate: [authGuard] },
+  { path: 'leaderboard', component: LeaderboardComponent, canActivate: [authGuard] }
 ];

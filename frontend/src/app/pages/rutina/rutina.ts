@@ -54,4 +54,8 @@ export class RutinaComponent implements OnInit {
   volver() {
     this.router.navigate(['/objetivo']);
   }
+
+  verRanking() {
+  this.router.navigate(['/leaderboard']);
+}
 }
