@@ -7,6 +7,7 @@ services:
     environment:
       - JWT_SECRET=${JWT_SECRET}
       - SPRING_PROFILES_ACTIVE=docker
+      - JAVA_TOOL_OPTIONS=-Xmx128m
     restart: always
     networks:
       - trainself-net
@@ -15,6 +16,7 @@ services:
     image: ${DOCKERHUB_USER}/trainself-ms-usuarios:latest
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - JAVA_TOOL_OPTIONS=-Xmx128m
     restart: always
     depends_on:
       - ms-auth
@@ -25,6 +27,7 @@ services:
     image: ${DOCKERHUB_USER}/trainself-ms-rutinas:latest
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - JAVA_TOOL_OPTIONS=-Xmx128m
     restart: always
     depends_on:
       - ms-auth
@@ -35,6 +38,7 @@ services:
     image: ${DOCKERHUB_USER}/trainself-ms-admin:latest
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - JAVA_TOOL_OPTIONS=-Xmx128m
     restart: always
     depends_on:
       - ms-auth
@@ -45,6 +49,7 @@ services:
     image: ${DOCKERHUB_USER}/trainself-ms-leaderboard:latest
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - JAVA_TOOL_OPTIONS=-Xmx128m
     restart: always
     depends_on:
       - ms-auth
