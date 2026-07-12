@@ -5,10 +5,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RestController
 public class GatewayController {
@@ -81,6 +85,18 @@ public class GatewayController {
         HttpEntity<String> entity = new HttpEntity<>(body, headers);
         HttpMethod method = HttpMethod.valueOf(request.getMethod());
 
-        return restTemplate.exchange(targetUrl, method, entity, String.class);
+        try {
+            // Usamos URI (ya construida, con el query string tal cual llegó
+            // codificado desde el cliente) en vez de pasar un String a
+            // exchange(...). Si se pasa un String, RestTemplate vuelve a
+            // codificar caracteres especiales (por ejemplo "%C3%A9" pasaría
+            // a "%25C3%25A9"), rompiendo filtros con acentos u otros
+            // caracteres no-ASCII.
+            URI uri = new URI(targetUrl);
+            return restTemplate.exchange(uri, method, entity, String.class);
+        } catch (URISyntaxException e) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                    .body("{\"error\":\"URL invalida al reenviar la peticion\"}");
+        }
     }
 }
