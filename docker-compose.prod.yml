@@ -1,13 +1,13 @@
-version: '3.8'
-
-services:
-
-  ms-auth:
+ms-auth:
     image: ${DOCKERHUB_USER}/trainself-ms-auth:latest
     environment:
       - JWT_SECRET=${JWT_SECRET}
-      - SPRING_PROFILES_ACTIVE=docker
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - SPRING_PROFILES_ACTIVE=oracle
+      - ORACLE_DB_SERVICE=${ORACLE_DB_SERVICE}
+      - ORACLE_DB_USER=${ORACLE_DB_USER}
+      - ORACLE_DB_PASSWORD=${ORACLE_DB_PASSWORD}
+    volumes:
+      - ./wallet:/app/wallet:ro
     restart: always
     networks:
       - trainself-net
@@ -15,8 +15,12 @@ services:
   ms-usuarios:
     image: ${DOCKERHUB_USER}/trainself-ms-usuarios:latest
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - SPRING_PROFILES_ACTIVE=oracle
+      - ORACLE_DB_SERVICE=${ORACLE_DB_SERVICE}
+      - ORACLE_DB_USER=${ORACLE_DB_USER}
+      - ORACLE_DB_PASSWORD=${ORACLE_DB_PASSWORD}
+    volumes:
+      - ./wallet:/app/wallet:ro
     restart: always
     depends_on:
       - ms-auth
@@ -26,8 +30,12 @@ services:
   ms-rutinas:
     image: ${DOCKERHUB_USER}/trainself-ms-rutinas:latest
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - SPRING_PROFILES_ACTIVE=oracle
+      - ORACLE_DB_SERVICE=${ORACLE_DB_SERVICE}
+      - ORACLE_DB_USER=${ORACLE_DB_USER}
+      - ORACLE_DB_PASSWORD=${ORACLE_DB_PASSWORD}
+    volumes:
+      - ./wallet:/app/wallet:ro
     restart: always
     depends_on:
       - ms-auth
@@ -37,8 +45,12 @@ services:
   ms-admin:
     image: ${DOCKERHUB_USER}/trainself-ms-admin:latest
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - SPRING_PROFILES_ACTIVE=oracle
+      - ORACLE_DB_SERVICE=${ORACLE_DB_SERVICE}
+      - ORACLE_DB_USER=${ORACLE_DB_USER}
+      - ORACLE_DB_PASSWORD=${ORACLE_DB_PASSWORD}
+    volumes:
+      - ./wallet:/app/wallet:ro
     restart: always
     depends_on:
       - ms-auth
@@ -48,45 +60,14 @@ services:
   ms-leaderboard:
     image: ${DOCKERHUB_USER}/trainself-ms-leaderboard:latest
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - JAVA_TOOL_OPTIONS=-Xmx128m
+      - SPRING_PROFILES_ACTIVE=oracle
+      - ORACLE_DB_SERVICE=${ORACLE_DB_SERVICE}
+      - ORACLE_DB_USER=${ORACLE_DB_USER}
+      - ORACLE_DB_PASSWORD=${ORACLE_DB_PASSWORD}
+    volumes:
+      - ./wallet:/app/wallet:ro
     restart: always
     depends_on:
       - ms-auth
     networks:
       - trainself-net
-
-  bff:
-    image: ${DOCKERHUB_USER}/trainself-bff:latest
-    ports:
-      - "3000:3000"
-    environment:
-      - JWT_SECRET=${JWT_SECRET}
-      - AUTH_SERVICE_URL=http://ms-auth:8081
-      - USUARIOS_SERVICE_URL=http://ms-usuarios:8082
-      - RUTINAS_SERVICE_URL=http://ms-rutinas:8083
-      - ADMIN_SERVICE_URL=http://ms-admin:8084
-      - LEADERBOARD_SERVICE_URL=http://ms-leaderboard:8085
-    restart: always
-    depends_on:
-      - ms-auth
-      - ms-usuarios
-      - ms-rutinas
-      - ms-admin
-      - ms-leaderboard
-    networks:
-      - trainself-net
-
-  frontend:
-    image: ${DOCKERHUB_USER}/trainself-frontend:latest
-    ports:
-      - "80:80"
-    restart: always
-    depends_on:
-      - bff
-    networks:
-      - trainself-net
-
-networks:
-  trainself-net:
-    driver: bridge
