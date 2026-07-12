@@ -1,4 +1,6 @@
-ms-auth:
+services:
+
+  ms-auth:
     image: ${DOCKERHUB_USER}/trainself-ms-auth:latest
     environment:
       - JWT_SECRET=${JWT_SECRET}
@@ -71,3 +73,38 @@ ms-auth:
       - ms-auth
     networks:
       - trainself-net
+
+  bff:
+    image: ${DOCKERHUB_USER}/trainself-bff:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - services.auth.url=http://ms-auth:8081
+      - services.usuarios.url=http://ms-usuarios:8082
+      - services.rutinas.url=http://ms-rutinas:8083
+      - services.admin.url=http://ms-admin:8084
+      - services.leaderboard.url=http://ms-leaderboard:8085
+    restart: always
+    depends_on:
+      - ms-auth
+      - ms-usuarios
+      - ms-rutinas
+      - ms-admin
+      - ms-leaderboard
+    networks:
+      - trainself-net
+
+  frontend:
+    image: ${DOCKERHUB_USER}/trainself-frontend:latest
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - bff
+    networks:
+      - trainself-net
+
+networks:
+  trainself-net:
+    driver: bridge
