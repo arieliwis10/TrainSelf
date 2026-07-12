@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RutinasService } from '../../services/rutinas.service';
@@ -25,42 +25,42 @@ export class ObjetivoComponent {
 
   niveles = ['Principiante', 'Intermedio', 'Avanzado'];
 
-  objetivoSeleccionado = '';
-  nivelSeleccionado = 'Principiante';
-  error = '';
-  cargando = false;
+  objetivoSeleccionado = signal('');
+  nivelSeleccionado = signal('Principiante');
+  error = signal('');
+  cargando = signal(false);
 
   constructor(private rutinasService: RutinasService, private router: Router) {}
 
   seleccionarObjetivo(nombre: string) {
-    this.objetivoSeleccionado = nombre;
-    this.error = '';
+    this.objetivoSeleccionado.set(nombre);
+    this.error.set('');
   }
 
   seleccionarNivel(nivel: string) {
-    this.nivelSeleccionado = nivel;
+    this.nivelSeleccionado.set(nivel);
   }
 
   continuar() {
-    if (!this.objetivoSeleccionado) {
-      this.error = 'Elige un objetivo para continuar';
+    if (!this.objetivoSeleccionado()) {
+      this.error.set('Elige un objetivo para continuar');
       return;
     }
 
-    this.cargando = true;
-    this.rutinasService.buscarPorObjetivoYNivel(this.objetivoSeleccionado, this.nivelSeleccionado)
+    this.cargando.set(true);
+    this.rutinasService.buscarPorObjetivoYNivel(this.objetivoSeleccionado(), this.nivelSeleccionado())
       .subscribe({
         next: (rutinas) => {
-          this.cargando = false;
+          this.cargando.set(false);
           if (rutinas.length === 0) {
-            this.error = 'No hay rutinas disponibles para esa combinación todavía';
+            this.error.set('No hay rutinas disponibles para esa combinación todavía');
             return;
           }
           this.router.navigate(['/rutina', rutinas[0].id]);
         },
         error: () => {
-          this.cargando = false;
-          this.error = 'No se pudieron cargar las rutinas';
+          this.cargando.set(false);
+          this.error.set('No se pudieron cargar las rutinas');
         }
       });
   }

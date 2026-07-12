@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RutinasService, Rutina } from '../../services/rutinas.service';
@@ -12,11 +12,11 @@ import { SesionesService } from '../../services/sesiones.service';
   styleUrl: './rutina.css'
 })
 export class RutinaComponent implements OnInit {
-  rutina: Rutina | null = null;
-  cargando = true;
-  error = '';
-  completando = false;
-  mensajeExito = '';
+  rutina = signal<Rutina | null>(null);
+  cargando = signal(true);
+  error = signal('');
+  completando = signal(false);
+  mensajeExito = signal('');
 
   constructor(
     private route: ActivatedRoute,
@@ -28,24 +28,26 @@ export class RutinaComponent implements OnInit {
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.rutinasService.obtenerPorId(id).subscribe({
-      next: (r) => { this.rutina = r; this.cargando = false; },
-      error: () => { this.error = 'No se pudo cargar la rutina'; this.cargando = false; }
+      next: (r) => { this.rutina.set(r); this.cargando.set(false); },
+      error: () => { this.error.set('No se pudo cargar la rutina'); this.cargando.set(false); }
     });
   }
 
   marcarCompletada() {
-    if (!this.rutina) return;
+    const rutinaActual = this.rutina();
+    if (!rutinaActual) return;
+
     const usuarioId = Number(localStorage.getItem('usuarioId'));
     if (!usuarioId) {
-      this.error = 'Debes iniciar sesión de nuevo';
+      this.error.set('Debes iniciar sesión de nuevo');
       return;
     }
 
-    this.completando = true;
-    this.sesionesService.completarSesion(usuarioId, this.rutina.id, this.rutina.duracionEstimadaMin)
+    this.completando.set(true);
+    this.sesionesService.completarSesion(usuarioId, rutinaActual.id, rutinaActual.duracionEstimadaMin)
       .subscribe({
-        next: () => { this.completando = false; this.mensajeExito = '¡Rutina completada! +50 pts'; },
-        error: () => { this.completando = false; this.error = 'No se pudo registrar la sesión'; }
+        next: () => { this.completando.set(false); this.mensajeExito.set('¡Rutina completada! +50 pts'); },
+        error: () => { this.completando.set(false); this.error.set('No se pudo registrar la sesión'); }
       });
   }
 

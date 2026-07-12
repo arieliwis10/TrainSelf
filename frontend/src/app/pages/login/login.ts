@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -14,28 +14,26 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   email = '';
   password = '';
-  error = '';
-  cargando = false;
+  error = signal('');
+  cargando = signal(false);
 
   constructor(private router: Router, private authService: AuthService) {}
 
   login() {
     if (!this.email || !this.password) {
-      this.error = 'Completa todos los campos';
+      this.error.set('Completa todos los campos');
       return;
     }
-
-    this.error = '';
-    this.cargando = true;
-
+    this.error.set('');
+    this.cargando.set(true);
     this.authService.login(this.email, this.password).subscribe({
       next: () => {
-        this.cargando = false;
-        this.router.navigate(['/objetivo']); // ajusta a tu ruta principal cuando la tengas
+        this.cargando.set(false);
+        this.router.navigate(['/objetivo']);
       },
       error: (err) => {
-        this.cargando = false;
-        this.error = err.error?.error || 'Correo o contraseña incorrectos';
+        this.cargando.set(false);
+        this.error.set(err.error?.error || 'Correo o contraseña incorrectos');
       }
     });
   }

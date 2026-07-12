@@ -7,7 +7,7 @@
       <div
         *ngFor="let obj of objetivos"
         class="objetivo-item"
-        [class.selected]="objetivoSeleccionado === obj.nombre"
+        [class.selected]="objetivoSeleccionado() === obj.nombre"
         (click)="seleccionarObjetivo(obj.nombre)"
       >
         <span class="icono">{{ obj.icono }}</span>
@@ -22,17 +22,17 @@
     <div class="nivel-group">
       <button
         *ngFor="let n of niveles"
-        [class.active]="nivelSeleccionado === n"
+        [class.active]="nivelSeleccionado() === n"
         (click)="seleccionarNivel(n)"
       >
         {{ n }}
       </button>
     </div>
 
-    <p class="error" *ngIf="error">{{ error }}</p>
+    <p class="error" *ngIf="error()">{{ error() }}</p>
 
-    <button class="continuar" (click)="continuar()" [disabled]="cargando">
-      {{ cargando ? 'Cargando...' : 'Continuar' }}
+    <button class="continuar" (click)="continuar()" [disabled]="cargando()">
+      {{ cargando() ? 'Cargando...' : 'Continuar' }}
     </button>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -15,30 +15,28 @@ export class RegistroComponent {
   nombre = '';
   email = '';
   password = '';
-  error = '';
-  success = '';
-  cargando = false;
+  error = signal('');
+  success = signal('');
+  cargando = signal(false);
 
   constructor(private router: Router, private authService: AuthService) {}
 
   registrar() {
     if (!this.nombre || !this.email || !this.password) {
-      this.error = 'Completa todos los campos';
+      this.error.set('Completa todos los campos');
       return;
     }
-
-    this.error = '';
-    this.cargando = true;
-
+    this.error.set('');
+    this.cargando.set(true);
     this.authService.registrar(this.nombre, this.email, this.password).subscribe({
       next: () => {
-        this.cargando = false;
-        this.success = '¡Cuenta creada! Redirigiendo...';
+        this.cargando.set(false);
+        this.success.set('¡Cuenta creada! Redirigiendo...');
         setTimeout(() => this.router.navigate(['/login']), 1500);
       },
       error: (err) => {
-        this.cargando = false;
-        this.error = err.error?.error || 'No se pudo crear la cuenta';
+        this.cargando.set(false);
+        this.error.set(err.error?.error || 'No se pudo crear la cuenta');
       }
     });
   }
