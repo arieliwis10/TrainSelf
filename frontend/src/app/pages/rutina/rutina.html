@@ -1,6 +1,10 @@
 <div class="container" *ngIf="!cargando() && rutina()">
   <div class="card">
-    <button class="back" (click)="volver()">&larr;</button>
+    <div class="top-bar">
+      <button class="back" (click)="volver()">&larr;</button>
+      <button class="ranking-btn" (click)="verRanking()">🏆 Ranking</button>
+    </div>
+
     <h2>{{ rutina()!.nombre }}</h2>
     <p class="subtitle">{{ rutina()!.objetivo.nombre }} · {{ rutina()!.nivel }}</p>
     <p class="meta">Duración estimada: {{ rutina()!.duracionEstimadaMin }} min</p>
