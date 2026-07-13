@@ -1,13 +1,36 @@
 <div class="container" *ngIf="!cargando() && rutina()">
   <div class="card">
-    <div class="top-bar">
+    <div class="banner">
       <button class="back" (click)="volver()">&larr;</button>
-      <button class="ranking-btn" (click)="verRanking()">🏆 Ranking</button>
+      <div class="banner-texto">
+        <h2>Rutina: {{ rutina()!.nombre }}</h2>
+        <small>{{ rutina()!.objetivo.nombre }} · {{ rutina()!.nivel }}</small>
+      </div>
+      <span class="pts-badge">+50 pts</span>
     </div>
 
-    <h2>{{ rutina()!.nombre }}</h2>
-    <p class="subtitle">{{ rutina()!.objetivo.nombre }} · {{ rutina()!.nivel }}</p>
-    <p class="meta">Duración estimada: {{ rutina()!.duracionEstimadaMin }} min</p>
+    <div class="stats-row">
+      <div class="stat">
+        <small>⏱ Duración estimada</small>
+        <strong>{{ rutina()!.duracionEstimadaMin }} min</strong>
+      </div>
+      <div class="stat">
+        <small>🔥 Ejercicios</small>
+        <strong>{{ rutina()!.ejercicios.length }}</strong>
+      </div>
+    </div>
+
+    <div class="progreso-box">
+      <div class="progreso-header">
+        <span>Progreso de la rutina</span>
+        <span>{{ rutina()!.ejercicios.length }} ejercicios</span>
+      </div>
+      <div class="barra">
+        <div class="barra-relleno" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <p class="label">Ejercicios</p>
 
     <div class="ejercicios">
       <div class="ejercicio" *ngFor="let ej of rutina()!.ejercicios; let i = index">
@@ -19,12 +42,14 @@
       </div>
     </div>
 
-    <p class="exito" *ngIf="mensajeExito()">{{ mensajeExito() }}</p>
+    <p class="exito" *ngIf="mensajeExito()">✓ {{ mensajeExito() }}</p>
     <p class="error" *ngIf="error()">{{ error() }}</p>
 
     <button class="completar" (click)="marcarCompletada()" [disabled]="completando() || !!mensajeExito()">
-      {{ mensajeExito() ? 'Completada ✓' : (completando() ? 'Guardando...' : 'Marcar rutina como completada') }}
+      {{ mensajeExito() ? 'Completada ✓' : (completando() ? 'Guardando...' : '✓ Marcar rutina como completada') }}
     </button>
+
+    <button class="ranking-btn" (click)="verRanking()">🏆 Ver ranking</button>
   </div>
 </div>
 

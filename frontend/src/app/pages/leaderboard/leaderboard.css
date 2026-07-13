@@ -4,85 +4,126 @@
   align-items: center;
   min-height: 100vh;
   background: #0a0a0a;
+  padding: 1rem;
 }
 
 .card {
-  background: #1a1a1a;
+  background: #16161a;
   border-radius: 16px;
-  padding: 2rem;
   width: 100%;
   max-width: 420px;
   color: #fff;
+  overflow: hidden;
+}
+
+.banner {
+  background: linear-gradient(135deg, #5b3df5, #4c2fd8);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   position: relative;
 }
 
 .back {
+  position: absolute;
+  left: 1rem;
+  top: 0.9rem;
   background: none;
   border: none;
   color: #fff;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  margin-bottom: 0.5rem;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
+.trofeo { font-size: 2rem; margin-left: 1.5rem; }
 
-.trofeo { font-size: 2rem; }
-.header h2 { margin: 0; font-size: 1.1rem; }
+.banner-texto h2 { margin: 0; font-size: 1.1rem; }
+.banner-texto small { color: #d8d3ff; }
 
 .stats {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.5rem 0;
 }
 
 .stat {
   flex: 1;
-  background: #222;
+  background: #1f1f26;
   border-radius: 12px;
   padding: 0.75rem;
-  text-align: center;
 }
 
-.stat small { display: block; color: #999; margin-bottom: 0.25rem; }
-.stat strong { font-size: 1.25rem; color: #22d3ee; }
+.stat small { display: block; color: #999; margin-bottom: 0.25rem; font-size: 0.8rem; }
+.stat strong { font-size: 1.3rem; color: #8b7bff; }
 
-.lista { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 1.5rem 0;
+}
 
 .fila {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem;
+  padding: 0.6rem 0.75rem;
   border-radius: 10px;
-  background: #222;
+  background: #1f1f26;
+}
+
+.fila.oro {
+  background: #2a2410;
+  border: 1px solid #d4af37;
 }
 
 .fila.destacado {
-  border: 1px solid #22d3ee;
-  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid #8b7bff;
+  background: rgba(139, 123, 255, 0.12);
 }
 
-.posicion { width: 28px; text-align: center; font-weight: 700; }
-.nombre { flex: 1; }
-.puntos { font-weight: 600; color: #22d3ee; }
+.medalla { font-size: 1.3rem; width: 28px; text-align: center; }
+.posicion { width: 28px; text-align: center; font-weight: 700; color: #999; }
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.nombre { flex: 1; font-weight: 500; }
+.puntos { font-weight: 600; color: #8b7bff; }
 
 .diferencia {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #222;
+  background: #1f1f26;
   border-radius: 10px;
   padding: 0.75rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #999;
+  margin: 1.25rem 1.5rem 0;
 }
 
 .diferencia strong { color: #4ade80; }
 
-.error { color: #ff6b6b; text-align: center; margin-top: 1rem; }
+.motivacion {
+  margin: 1rem 1.5rem 1.5rem;
+  background: #2a2410;
+  border: 1px solid #d4af37;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  color: #e0c674;
+}
+
+.error { color: #ff6b6b; text-align: center; padding-bottom: 1rem; }

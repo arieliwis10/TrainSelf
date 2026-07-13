@@ -57,6 +57,15 @@ export class LeaderboardComponent implements OnInit {
     return '';
   }
 
+  inicial(nombre: string): string {
+    return nombre
+      .split(' ')
+      .map(p => p.charAt(0))
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+  }
+
   volver() {
     this.router.navigate(['/objetivo']);
   }

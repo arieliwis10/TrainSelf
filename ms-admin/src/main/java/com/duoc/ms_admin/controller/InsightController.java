@@ -23,4 +23,14 @@ public class InsightController {
     public ResponseEntity<List<Map<String, Object>>> rutinasMasUsadas() {
         return ResponseEntity.ok(insightService.rutinasMasUsadas());
     }
+
+    @GetMapping("/resumen")
+    public ResponseEntity<Map<String, Object>> resumen() {
+        return ResponseEntity.ok(insightService.resumen());
+    }
+
+    @GetMapping("/rutinas-por-objetivo")
+    public ResponseEntity<List<Map<String, Object>>> rutinasPorObjetivo() {
+        return ResponseEntity.ok(insightService.rutinasPorObjetivo());
+    }
 }

@@ -3,7 +3,9 @@ package com.duoc.ms_admin.repository;
 import com.duoc.ms_admin.model.Sesion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface SesionRepository extends JpaRepository<Sesion, Long> {
@@ -15,4 +17,11 @@ public interface SesionRepository extends JpaRepository<Sesion, Long> {
         ORDER BY COUNT(s.id) DESC
     """)
     List<Object[]> rutinasMasUsadas();
+
+    @Query("SELECT COUNT(s) FROM Sesion s WHERE s.fechaInicio >= :fecha")
+        long contarSesionesDesde(@Param("fecha") LocalDateTime fecha);
+
+    @Query("SELECT COUNT(DISTINCT s.usuarioId) FROM Sesion s WHERE s.fechaInicio >= :fecha")
+        long contarUsuariosActivosDesde(@Param("fecha") LocalDateTime fecha);
+
 }

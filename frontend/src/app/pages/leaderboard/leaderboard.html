@@ -1,21 +1,21 @@
 <div class="container">
   <div class="card" *ngIf="!cargando()">
-    <button class="back" (click)="volver()">&larr;</button>
-
-    <div class="header">
+    <div class="banner">
+      <button class="back" (click)="volver()">&larr;</button>
       <span class="trofeo">🏆</span>
-      <div>
+      <div class="banner-texto">
         <h2>Ranking del gimnasio</h2>
+        <small>Actualizado hace unos minutos</small>
       </div>
     </div>
 
     <div class="stats" *ngIf="miPosicion()">
       <div class="stat">
-        <small>Tus puntos</small>
+        <small>📈 Tus puntos</small>
         <strong>{{ miPosicion()!.puntos }} pts</strong>
       </div>
       <div class="stat">
-        <small>Tu posición</small>
+        <small>📊 Tu posición</small>
         <strong>#{{ miPosicion()!.posicion }}</strong>
       </div>
     </div>
@@ -25,16 +25,27 @@
         class="fila"
         *ngFor="let r of ranking()"
         [class.destacado]="miPosicion() && r.usuarioId === miPosicion()!.usuarioId"
+        [class.oro]="r.posicion === 1"
       >
-        <span class="posicion">{{ medalla(r.posicion) || r.posicion }}</span>
-        <span class="nombre">{{ miPosicion() && r.usuarioId === miPosicion()!.usuarioId ? 'Tú' : r.nombre }}</span>
+        <span class="medalla" *ngIf="medalla(r.posicion)">{{ medalla(r.posicion) }}</span>
+        <span class="posicion" *ngIf="!medalla(r.posicion)">{{ r.posicion }}</span>
+
+        <span class="avatar">{{ inicial(r.nombre) }}</span>
+
+        <span class="nombre">
+          {{ miPosicion() && r.usuarioId === miPosicion()!.usuarioId ? 'Tú' : r.nombre }}
+        </span>
         <span class="puntos">{{ r.puntos }} pts</span>
       </div>
     </div>
 
     <div class="diferencia" *ngIf="miPosicion() && miPosicion()!.posicion > 3">
       <span>Tu diferencia con el 3° puesto</span>
-      <strong>{{ diferenciaConTercero() }} pts</strong>
+      <strong>↗ {{ diferenciaConTercero() }} pts</strong>
+    </div>
+
+    <div class="motivacion">
+      ⭐ ¡Sigue así! Cada punto te acerca a tu meta.
     </div>
 
     <p class="error" *ngIf="error()">{{ error() }}</p>
