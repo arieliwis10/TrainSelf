@@ -126,4 +126,9 @@
   color: #e0c674;
 }
 
+.fila { cursor: pointer; transition: background 0.15s; }
+.fila:hover { background: #26262e; }
+.flecha { color: #666; margin-left: 0.25rem; }
+
+
 .error { color: #ff6b6b; text-align: center; padding-bottom: 1rem; }

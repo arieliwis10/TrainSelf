@@ -23,18 +23,38 @@
     <div class="progreso-box">
       <div class="progreso-header">
         <span>Progreso de la rutina</span>
-        <span>{{ rutina()!.ejercicios.length }} ejercicios</span>
+        <span>{{ ejercicioActual() + 1 }} / {{ rutina()!.ejercicios.length }} ejercicios</span>
       </div>
       <div class="barra">
-        <div class="barra-relleno" style="width: 0%"></div>
+        <div class="barra-relleno" [style.width.%]="progresoPorcentaje()"></div>
       </div>
     </div>
 
-    <p class="label">Ejercicios</p>
+    <p class="label">Ejercicio actual</p>
+
+    <div class="ejercicio-actual" *ngIf="rutina()!.ejercicios[ejercicioActual()] as ej">
+      <span class="numero">{{ ejercicioActual() + 1 }}</span>
+      <div class="detalle-actual">
+        <div class="fila-detalle">
+          <strong>{{ ej.nombre }}</strong>
+          <span class="timer-circulo" [class.corriendo]="!pausado()">
+            {{ formatoTiempo() }}
+          </span>
+        </div>
+        <small>descanso {{ ej.descansoSeg }}s</small>
+      </div>
+    </div>
+
+    <p class="label">Siguientes ejercicios</p>
 
     <div class="ejercicios">
-      <div class="ejercicio" *ngFor="let ej of rutina()!.ejercicios; let i = index">
-        <span class="numero">{{ i + 1 }}</span>
+      <div
+        class="ejercicio"
+        *ngFor="let ej of rutina()!.ejercicios; let i = index"
+        [class.actual]="i === ejercicioActual()"
+        (click)="irAEjercicio(i)"
+      >
+        <span class="numero-chico">{{ i + 1 }}</span>
         <div class="detalle">
           <strong>{{ ej.nombre }}</strong>
           <small>{{ ej.duracionSeg }}s · descanso {{ ej.descansoSeg }}s</small>
@@ -48,6 +68,12 @@
     <button class="completar" (click)="marcarCompletada()" [disabled]="completando() || !!mensajeExito()">
       {{ mensajeExito() ? 'Completada ✓' : (completando() ? 'Guardando...' : '✓ Marcar rutina como completada') }}
     </button>
+
+    <div class="nav-buttons">
+      <button (click)="anterior()" [disabled]="ejercicioActual() === 0">⏮ Anterior</button>
+      <button (click)="togglePausa()">{{ pausado() ? '▶ Iniciar' : '⏸ Pausar' }}</button>
+      <button (click)="siguiente()" [disabled]="ejercicioActual() === rutina()!.ejercicios.length - 1">Siguiente ⏭</button>
+    </div>
 
     <button class="ranking-btn" (click)="verRanking()">🏆 Ver ranking</button>
   </div>

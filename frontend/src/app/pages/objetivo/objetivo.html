@@ -31,8 +31,23 @@
 
     <p class="error" *ngIf="error()">{{ error() }}</p>
 
-    <button class="continuar" (click)="continuar()" [disabled]="cargando()">
-      {{ cargando() ? 'Cargando...' : 'Continuar' }}
+    <button class="continuar" (click)="buscarRutinas()" [disabled]="cargando()">
+      {{ cargando() ? 'Buscando...' : 'Buscar rutinas' }}
     </button>
+
+    <div class="resultados" *ngIf="buscado() && rutinasEncontradas().length > 0">
+      <p class="label">Rutinas disponibles</p>
+      <div
+        class="rutina-item"
+        *ngFor="let r of rutinasEncontradas()"
+        (click)="elegirRutina(r.id)"
+      >
+        <div class="texto">
+          <strong>{{ r.nombre }}</strong>
+          <small>{{ r.duracionEstimadaMin }} min · {{ r.ejercicios.length }} ejercicios</small>
+        </div>
+        <span class="flecha">›</span>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,0 +1,44 @@
+<div class="container" *ngIf="!cargando() && usuario()">
+  <div class="card">
+    <div class="banner">
+      <button class="back" (click)="volver()">&larr;</button>
+      <div class="avatar-grande">{{ usuario()!.nombre.charAt(0) }}</div>
+      <div class="banner-texto">
+        <h2>{{ usuario()!.nombre }}</h2>
+        <small>{{ usuario()!.correo }}</small>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <small>⭐ Puntos</small>
+        <strong>{{ usuario()!.puntosAcumulados }}</strong>
+      </div>
+      <div class="stat">
+        <small>✓ Rutinas completadas</small>
+        <strong>{{ sesionesCompletadas() }}</strong>
+      </div>
+    </div>
+
+    <p class="label">Historial de sesiones</p>
+
+    <div class="historial" *ngIf="historial().length > 0">
+      <div class="fila" *ngFor="let s of historial()">
+        <span class="check" [class.ok]="s.completada">{{ s.completada ? '✓' : '·' }}</span>
+        <div class="detalle">
+          <strong>Rutina #{{ s.rutinaId }}</strong>
+          <small>{{ s.fechaInicio | date:'dd/MM/yyyy HH:mm' }}</small>
+        </div>
+        <span class="puntos" *ngIf="s.completada">+{{ s.puntosObtenidos }} pts</span>
+      </div>
+    </div>
+
+    <p class="vacio" *ngIf="historial().length === 0">Aún no hay sesiones registradas.</p>
+
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+  </div>
+</div>
+
+<div class="container" *ngIf="cargando()">
+  <p style="color:#fff">Cargando perfil...</p>
+</div>

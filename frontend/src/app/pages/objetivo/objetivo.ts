@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { RutinasService } from '../../services/rutinas.service';
+import { RutinasService, Rutina } from '../../services/rutinas.service';
 
 interface ObjetivoOpcion {
   nombre: string;
@@ -29,39 +29,50 @@ export class ObjetivoComponent {
   nivelSeleccionado = signal('Principiante');
   error = signal('');
   cargando = signal(false);
+  rutinasEncontradas = signal<Rutina[]>([]);
+  buscado = signal(false);
 
   constructor(private rutinasService: RutinasService, private router: Router) {}
 
   seleccionarObjetivo(nombre: string) {
     this.objetivoSeleccionado.set(nombre);
     this.error.set('');
+    this.buscado.set(false);
+    this.rutinasEncontradas.set([]);
   }
 
   seleccionarNivel(nivel: string) {
     this.nivelSeleccionado.set(nivel);
+    this.buscado.set(false);
+    this.rutinasEncontradas.set([]);
   }
 
-  continuar() {
+  buscarRutinas() {
     if (!this.objetivoSeleccionado()) {
       this.error.set('Elige un objetivo para continuar');
       return;
     }
 
     this.cargando.set(true);
+    this.error.set('');
     this.rutinasService.buscarPorObjetivoYNivel(this.objetivoSeleccionado(), this.nivelSeleccionado())
       .subscribe({
         next: (rutinas) => {
           this.cargando.set(false);
+          this.buscado.set(true);
+          this.rutinasEncontradas.set(rutinas);
           if (rutinas.length === 0) {
             this.error.set('No hay rutinas disponibles para esa combinación todavía');
-            return;
           }
-          this.router.navigate(['/rutina', rutinas[0].id]);
         },
         error: () => {
           this.cargando.set(false);
           this.error.set('No se pudieron cargar las rutinas');
         }
       });
+  }
+
+  elegirRutina(id: number) {
+    this.router.navigate(['/rutina', id]);
   }
 }

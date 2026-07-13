@@ -66,6 +66,10 @@ export class LeaderboardComponent implements OnInit {
       .toUpperCase();
   }
 
+  verPerfil(usuarioId: number) {
+    this.router.navigate(['/perfil', usuarioId]);
+  }
+
   volver() {
     this.router.navigate(['/objetivo']);
   }

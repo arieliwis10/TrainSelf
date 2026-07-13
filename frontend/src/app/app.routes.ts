@@ -7,6 +7,7 @@ import { LeaderboardComponent } from './pages/leaderboard/leaderboard';
 import { authGuard } from './guards/auth.guard';
 import { AdminComponent } from './pages/admin/admin';
 import { adminGuard } from './guards/admin.guard';
+import { PerfilComponent } from './pages/perfil/perfil';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -16,5 +17,7 @@ export const routes: Routes = [
   { path: 'rutina/:id', component: RutinaComponent, canActivate: [authGuard] },
   { path: 'leaderboard', component: LeaderboardComponent, canActivate: [authGuard] },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard, adminGuard] },
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login' },
+  { path: 'perfil/:id', component: PerfilComponent, canActivate: [authGuard] },
+
 ];

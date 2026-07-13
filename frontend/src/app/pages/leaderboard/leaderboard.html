@@ -26,6 +26,7 @@
         *ngFor="let r of ranking()"
         [class.destacado]="miPosicion() && r.usuarioId === miPosicion()!.usuarioId"
         [class.oro]="r.posicion === 1"
+        (click)="verPerfil(r.usuarioId)"
       >
         <span class="medalla" *ngIf="medalla(r.posicion)">{{ medalla(r.posicion) }}</span>
         <span class="posicion" *ngIf="!medalla(r.posicion)">{{ r.posicion }}</span>
@@ -36,6 +37,7 @@
           {{ miPosicion() && r.usuarioId === miPosicion()!.usuarioId ? 'Tú' : r.nombre }}
         </span>
         <span class="puntos">{{ r.puntos }} pts</span>
+        <span class="flecha">›</span>
       </div>
     </div>
 
