@@ -1,0 +1,82 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">🏋️ TrainSelf Admin</div>
+    <nav>
+      <a class="activo">🏠 Dashboard</a>
+      <a>🏃 Rutinas</a>
+      <a>👥 Usuarios</a>
+      <a>📊 Reportes</a>
+      <a>🏆 Logros</a>
+      <a>⚙️ Configuración</a>
+    </nav>
+    <div class="perfil">
+      <div class="avatar-admin">A</div>
+      <div>
+        <strong>Administrador</strong>
+        <small>admin&#64;trainself.com</small>
+      </div>
+    </div>
+    <button class="salir" (click)="volver()">← Volver a la app</button>
+  </aside>
+
+  <main class="contenido">
+    <h1>Dashboard de insights</h1>
+
+    <div class="stats-grid" *ngIf="resumen()">
+      <div class="stat-card">
+        <small>📈 Sesiones hoy</small>
+        <strong>{{ resumen()!.sesionesHoy }}</strong>
+      </div>
+      <div class="stat-card">
+        <small>👥 Usuarios activos</small>
+        <strong>{{ resumen()!.usuariosActivos }}</strong>
+      </div>
+      <div class="stat-card">
+        <small>📋 Rutinas totales</small>
+        <strong>{{ resumen()!.rutinasTotales }}</strong>
+      </div>
+    </div>
+
+    <div class="paneles">
+      <div class="panel tabla-panel">
+        <h3>Rutinas más usadas</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Usos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of rutinasMasUsadas(); let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ r.nombre }}</td>
+              <td>{{ r.vecesUsada }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel dona-panel">
+        <h3>Rutinas por objetivo</h3>
+        <div class="dona-wrap">
+          <canvas #donutCanvas></canvas>
+          <div class="dona-centro">
+            <strong>{{ totalRutinas() }}</strong>
+            <small>Total</small>
+          </div>
+        </div>
+        <ul class="leyenda">
+          <li *ngFor="let r of rutinasPorObjetivo(); let i = index">
+            <span class="dot" [style.background]="color(i)"></span>
+            {{ r.objetivo }}
+            <strong>{{ porcentaje(r.cantidad) }}% ({{ r.cantidad }})</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+  </main>
+</div>
