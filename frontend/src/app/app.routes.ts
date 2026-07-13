@@ -6,6 +6,7 @@ import { RutinaComponent } from './pages/rutina/rutina';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard';
 import { authGuard } from './guards/auth.guard';
 import { AdminComponent } from './pages/admin/admin';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -14,5 +15,6 @@ export const routes: Routes = [
   { path: 'objetivo', component: ObjetivoComponent, canActivate: [authGuard] },
   { path: 'rutina/:id', component: RutinaComponent, canActivate: [authGuard] },
   { path: 'leaderboard', component: LeaderboardComponent, canActivate: [authGuard] },
-  { path: 'admin', component: AdminComponent, canActivate: [authGuard] }
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard, adminGuard] },
+  { path: '**', redirectTo: 'login' }
 ];

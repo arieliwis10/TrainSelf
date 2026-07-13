@@ -1,0 +1,241 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0a0a0a;
+  padding: 1rem;
+}
+
+.card {
+  background: #16161a;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.banner {
+  background: linear-gradient(135deg, #5b3df5, #4c2fd8);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.back {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.banner-texto { flex: 1; }
+.banner-texto h2 { margin: 0; font-size: 1.05rem; }
+.banner-texto small { color: #d8d3ff; }
+
+.pts-badge {
+  border: 1px solid #a396ff;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #d8d3ff;
+  flex-shrink: 0;
+}
+
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem 0;
+}
+
+.stat {
+  flex: 1;
+  background: #1f1f26;
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.stat small { display: block; color: #999; margin-bottom: 0.25rem; font-size: 0.8rem; }
+.stat strong { font-size: 1.15rem; }
+
+.progreso-box {
+  margin: 1.25rem 1.5rem 0;
+  background: #1f1f26;
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.progreso-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-bottom: 0.5rem;
+}
+
+.barra {
+  height: 8px;
+  background: #333;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.barra-relleno {
+  height: 100%;
+  background: linear-gradient(90deg, #5b3df5, #8b7bff);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.label {
+  padding: 1.25rem 1.5rem 0.5rem;
+  margin: 0;
+  font-weight: 500;
+  color: #ccc;
+}
+
+.ejercicio-actual {
+  margin: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem;
+  border: 1px solid #5b3df5;
+  border-radius: 12px;
+  background: rgba(91, 61, 245, 0.08);
+}
+
+.ejercicio-actual .numero {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #5b3df5;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.detalle-actual { flex: 1; }
+
+.fila-detalle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detalle-actual small { color: #999; }
+
+.timer-circulo {
+  border: 2px solid #5b3df5;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.timer-circulo.corriendo {
+  border-color: #8b7bff;
+  box-shadow: 0 0 0 3px rgba(139, 123, 255, 0.2);
+}
+
+.ejercicios {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 1.5rem;
+}
+
+.ejercicio {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid #2a2a33;
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.ejercicio.actual {
+  opacity: 1;
+  border-color: #5b3df5;
+}
+
+.numero-chico {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.detalle small { display: block; color: #999; }
+
+.exito { color: #4ade80; text-align: center; margin: 1rem 1.5rem 0; }
+.error { color: #ff6b6b; text-align: center; margin: 1rem 1.5rem 0; }
+
+.completar {
+  display: block;
+  width: calc(100% - 3rem);
+  margin: 1.25rem 1.5rem 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #5b3df5;
+  border-radius: 10px;
+  background: rgba(91, 61, 245, 0.15);
+  color: #b7abff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.completar:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0 1.5rem 0.75rem;
+}
+
+.nav-buttons button {
+  flex: 1;
+  padding: 0.6rem;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1f1f26;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.nav-buttons button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.ranking-btn {
+  display: block;
+  width: calc(100% - 3rem);
+  margin: 0 1.5rem 1.5rem;
+  padding: 0.6rem;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background: #1f1f26;
+  color: #fff;
+  cursor: pointer;
+}
