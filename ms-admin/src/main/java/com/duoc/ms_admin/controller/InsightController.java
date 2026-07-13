@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/insights")
+@RequestMapping("/admin/insights")
 public class InsightController {
 
     private final InsightService insightService;
