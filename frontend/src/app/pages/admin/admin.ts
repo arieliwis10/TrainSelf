@@ -89,4 +89,16 @@ export class AdminComponent implements OnInit, AfterViewInit {
   irARutinas() {
     this.router.navigate(['/admin/rutinas']);
   }
+
+  irAUsuarios() {
+    this.router.navigate(['/admin/usuarios']);
+  }
+
+  irAReportes() {
+    this.router.navigate(['/admin/reportes']);
+  }
+
+  irALogros() {
+    this.router.navigate(['/admin/logros']);
+  }
 }
