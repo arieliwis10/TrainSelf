@@ -24,4 +24,21 @@ public interface SesionRepository extends JpaRepository<Sesion, Long> {
     @Query("SELECT COUNT(DISTINCT s.usuarioId) FROM Sesion s WHERE s.fechaInicio >= :fecha")
         long contarUsuariosActivosDesde(@Param("fecha") LocalDateTime fecha);
 
+    @Query("""
+        SELECT CAST(s.fechaInicio AS date), COUNT(s)
+        FROM Sesion s
+        WHERE s.fechaInicio >= :desde
+        GROUP BY CAST(s.fechaInicio AS date)
+        ORDER BY CAST(s.fechaInicio AS date)
+    """)
+    List<Object[]> actividadPorDia(@Param("desde") LocalDateTime desde);
+
+    @Query("""
+        SELECT s.usuarioId, COUNT(s)
+        FROM Sesion s
+        WHERE s.completada = true
+        GROUP BY s.usuarioId
+    """)
+    List<Object[]> sesionesCompletadasPorUsuario();       
+
 }
