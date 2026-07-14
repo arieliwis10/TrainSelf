@@ -126,4 +126,16 @@ export class AdminRutinasComponent implements OnInit {
   volver() {
     this.router.navigate(['/admin']);
   }
+ 
+  irAUsuarios() {
+    this.router.navigate(['/admin/usuarios']);
+  }
+ 
+  irAReportes() {
+    this.router.navigate(['/admin/reportes']);
+  }
+ 
+  irALogros() {
+    this.router.navigate(['/admin/logros']);
+  }
 }
