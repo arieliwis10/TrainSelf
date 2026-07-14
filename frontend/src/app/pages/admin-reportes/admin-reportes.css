@@ -70,3 +70,21 @@ th { color: #999; font-weight: 500; }
 }
 
 .error { color: #ff6b6b; margin-bottom: 1rem; }
+
+.volver-abajo {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #2a2a33;
+}
+
+.volver-abajo button {
+  background: #1f1f26;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #ccc;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.volver-abajo button:hover { border-color: #5b3df5; color: #fff; }

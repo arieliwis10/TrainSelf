@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RutinasService, Rutina } from '../../services/rutinas.service';
+import { AuthService } from '../../services/auth.service';
 
 interface ObjetivoOpcion {
   nombre: string;
@@ -32,7 +33,11 @@ export class ObjetivoComponent {
   rutinasEncontradas = signal<Rutina[]>([]);
   buscado = signal(false);
 
-  constructor(private rutinasService: RutinasService, private router: Router) {}
+  constructor(
+    private rutinasService: RutinasService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   seleccionarObjetivo(nombre: string) {
     this.objetivoSeleccionado.set(nombre);
@@ -74,5 +79,10 @@ export class ObjetivoComponent {
 
   elegirRutina(id: number) {
     this.router.navigate(['/rutina', id]);
+  }
+
+    cerrarSesion() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

@@ -35,6 +35,12 @@
       {{ cargando() ? 'Buscando...' : 'Buscar rutinas' }}
     </button>
 
+    <div class="volver-abajo" style="border-top: 1px solid #333; margin-top: 1.5rem; padding-top: 1rem;">
+      <button (click)="cerrarSesion()" style="background:none; border:1px solid #333; border-radius:8px; color:#999; padding:0.5rem 1rem; cursor:pointer; width:100%;">
+        Cerrar sesión
+      </button>
+    </div>
+
     <div class="resultados" *ngIf="buscado() && rutinasEncontradas().length > 0">
       <p class="label">Rutinas disponibles</p>
       <div
