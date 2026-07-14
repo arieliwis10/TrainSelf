@@ -1,0 +1,29 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">🏋️ TrainSelf Admin</div>
+    <nav>
+      <a (click)="irADashboard()">🏠 Dashboard</a>
+      <a (click)="irARutinas()">🏃 Rutinas</a>
+      <a (click)="irAUsuarios()">👥 Usuarios</a>
+      <a class="activo">📊 Reportes</a>
+      <a (click)="irALogros()">🏆 Logros</a>
+      <a>⚙️ Configuración</a>
+    </nav>
+  </aside>
+
+  <main class="contenido">
+    <h1>Reportes</h1>
+
+    <div class="stat-card" *ngIf="!cargando()">
+      <small>📈 Sesiones últimos 7 días</small>
+      <strong>{{ totalSemana() }}</strong>
+    </div>
+
+    <div class="panel">
+      <h3>Actividad en los últimos 7 días</h3>
+      <canvas #lineCanvas></canvas>
+    </div>
+
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+  </main>
+</div>

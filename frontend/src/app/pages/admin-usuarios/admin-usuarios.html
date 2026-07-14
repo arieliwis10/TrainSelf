@@ -1,0 +1,42 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">🏋️ TrainSelf Admin</div>
+    <nav>
+      <a (click)="irADashboard()">🏠 Dashboard</a>
+      <a (click)="irARutinas()">🏃 Rutinas</a>
+      <a class="activo">👥 Usuarios</a>
+      <a (click)="irAReportes()">📊 Reportes</a>
+      <a (click)="irALogros()">🏆 Logros</a>
+      <a>⚙️ Configuración</a>
+    </nav>
+  </aside>
+
+  <main class="contenido">
+    <h1>Usuarios</h1>
+
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+
+    <div class="panel">
+      <table *ngIf="!cargando()">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Puntos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of usuarios()">
+            <td>{{ u.nombre }}</td>
+            <td>{{ u.correo }}</td>
+            <td><span class="badge" [class.admin]="u.rol === 'ADMIN'">{{ u.rol }}</span></td>
+            <td>{{ u.puntosAcumulados }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="cargando()" style="color:#999">Cargando usuarios...</p>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,41 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="logo">🏋️ TrainSelf Admin</div>
+    <nav>
+      <a (click)="irADashboard()">🏠 Dashboard</a>
+      <a (click)="irARutinas()">🏃 Rutinas</a>
+      <a (click)="irAUsuarios()">👥 Usuarios</a>
+      <a (click)="irAReportes()">📊 Reportes</a>
+      <a class="activo">🏆 Logros</a>
+      <a>⚙️ Configuración</a>
+    </nav>
+  </aside>
+
+  <main class="contenido">
+    <h1>Logros</h1>
+    <p class="subtitle">🥉 Bronce: 1+ rutinas · 🥈 Plata: 5+ rutinas · 🥇 Oro: 10+ rutinas</p>
+
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+
+    <div class="panel">
+      <table *ngIf="!cargando()">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Rutinas completadas</th>
+            <th>Logro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let l of logros()">
+            <td>{{ l.nombre }}</td>
+            <td>{{ l.rutinasCompletadas }}</td>
+            <td>{{ l.medalla }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="cargando()" style="color:#999">Cargando logros...</p>
+    </div>
+  </main>
+</div>
