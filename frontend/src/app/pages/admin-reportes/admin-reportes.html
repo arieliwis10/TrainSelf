@@ -9,6 +9,9 @@
       <a (click)="irALogros()">🏆 Logros</a>
       <a>⚙️ Configuración</a>
     </nav>
+    <div class="volver-abajo">
+      <button (click)="irADashboard()">← Volver al Dashboard</button>
+    </div>
   </aside>
 
   <main class="contenido">
@@ -26,7 +29,5 @@
 
     <p class="error" *ngIf="error()">{{ error() }}</p>
   </main>
-    <div class="volver-abajo">
-      <button (click)="irADashboard()">← Volver al Dashboard</button>
-    </div>
+    
 </div>
