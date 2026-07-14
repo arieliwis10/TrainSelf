@@ -11,7 +11,7 @@ public class FilterConfig {
     @Bean
     public FilterRegistrationBean<AdminRoleFilter> adminRoleFilterRegistration(AdminRoleFilter filter) {
         FilterRegistrationBean<AdminRoleFilter> registration = new FilterRegistrationBean<>(filter);
-        registration.addUrlPatterns("/admin/rutinas/*", "/admin/ejercicios/*", "/admin/insights/*");
+        registration.addUrlPatterns("/admin/rutinas/*", "/admin/ejercicios/*", "/admin/insights/*", "/admin/objetivos/*");
         return registration;
     }
 }
