@@ -33,4 +33,15 @@ public class InsightController {
     public ResponseEntity<List<Map<String, Object>>> rutinasPorObjetivo() {
         return ResponseEntity.ok(insightService.rutinasPorObjetivo());
     }
+
+    @GetMapping("/actividad-7-dias")
+    public ResponseEntity<List<Map<String, Object>>> actividad7Dias() {
+        return ResponseEntity.ok(insightService.actividad7Dias());
+    }
+
+    @GetMapping("/logros")
+    public ResponseEntity<List<Map<String, Object>>> logros() {
+        return ResponseEntity.ok(insightService.logros());
+    }
+    
 }
