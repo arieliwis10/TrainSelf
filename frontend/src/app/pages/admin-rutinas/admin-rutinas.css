@@ -1,0 +1,139 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.sidebar {
+  width: 220px;
+  background: #16161a;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.logo { font-weight: 700; font-size: 1rem; }
+
+nav { display: flex; flex-direction: column; gap: 0.25rem; }
+
+nav a {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+nav a.activo { background: #5b3df5; color: #fff; }
+
+.contenido { flex: 1; padding: 2rem; overflow-y: auto; }
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+h1 { margin: 0; }
+
+.btn-primario {
+  background: #5b3df5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-secundario {
+  background: #1f1f26;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.btn-peligro {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.panel {
+  background: #16161a;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid #2a2a33; font-size: 0.9rem; }
+th { color: #999; font-weight: 500; }
+
+.badge {
+  background: rgba(91, 61, 245, 0.15);
+  color: #b7abff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.acciones { display: flex; gap: 0.5rem; }
+
+.icono-btn {
+  background: #1f1f26;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+}
+
+.exito { color: #4ade80; margin-bottom: 1rem; }
+.error { color: #ff6b6b; margin-bottom: 1rem; }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: #16161a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 380px;
+  color: #fff;
+}
+
+.modal h3 { margin-top: 0; }
+
+.modal label { display: block; margin-top: 0.75rem; margin-bottom: 0.3rem; font-size: 0.85rem; color: #ccc; }
+
+.modal input, .modal select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #1f1f26;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.modal-botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}

@@ -85,4 +85,8 @@ export class AdminComponent implements OnInit, AfterViewInit {
   volver() {
     this.router.navigate(['/objetivo']);
   }
+
+  irARutinas() {
+    this.router.navigate(['/admin/rutinas']);
+  }
 }

@@ -8,6 +8,7 @@ import { authGuard } from './guards/auth.guard';
 import { AdminComponent } from './pages/admin/admin';
 import { adminGuard } from './guards/admin.guard';
 import { PerfilComponent } from './pages/perfil/perfil';
+import { AdminRutinasComponent } from './pages/admin-rutinas/admin-rutinas';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,5 +20,5 @@ export const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [authGuard, adminGuard] },
   { path: '**', redirectTo: 'login' },
   { path: 'perfil/:id', component: PerfilComponent, canActivate: [authGuard] },
-
+  { path: 'admin/rutinas', component: AdminRutinasComponent, canActivate: [authGuard, adminGuard] }
 ];
